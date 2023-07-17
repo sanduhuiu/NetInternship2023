@@ -63,7 +63,9 @@ namespace TremendBoard.Mvc.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                ProjectStatus = model.ProjectStatus,
+                Deadline = model.ProjectDeadline
             });
 
             await _unitOfWork.SaveAsync();
@@ -156,6 +158,8 @@ namespace TremendBoard.Mvc.Controllers
 
             project.Name = model.Name;
             project.Description = model.Description;
+            project.ProjectStatus = model.ProjectStatus;
+            project.Deadline = model.ProjectDeadline;
 
             var users = await _unitOfWork.User.GetAllAsync();
             var usersView = users.Select(user => new UserDetailViewModel
