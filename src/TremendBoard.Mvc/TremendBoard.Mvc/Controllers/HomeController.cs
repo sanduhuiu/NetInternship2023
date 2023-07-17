@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Diagnostics;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Models;
@@ -31,6 +32,14 @@ namespace TremendBoard.Mvc.Controllers
                 ViewData["Message"] = "It's evening here - Good Evening!";
             }
 
+            if(serverTime.Hour < 9 || serverTime.Hour > 17)
+            {
+                Log.Warning("Index page entered outside business hours");
+            } else
+            {
+                Log.Information("Index page entered normally");
+            }
+
             return View();
         }
 
@@ -43,6 +52,7 @@ namespace TremendBoard.Mvc.Controllers
 
         public IActionResult Error()
         {
+            Log.Error("Error in HomeController");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
