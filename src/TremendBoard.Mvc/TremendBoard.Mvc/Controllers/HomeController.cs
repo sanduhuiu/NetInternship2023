@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Diagnostics;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Models;
@@ -8,14 +9,34 @@ namespace TremendBoard.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly IDateTime _dateTime;
+        // Without serilog you have to inject the logger
+        // In constructor:
+        /*private readonly ILogger _logger;*/
 
-        public HomeController(IDateTime dateTime)
+        public HomeController(IDateTime dateTime/*, ILogger logger*/)
         {
             _dateTime = dateTime;
+            //_logger = logger;
         }
 
-        public IActionResult Index()
+        // Or directly in the method:
+        public IActionResult Index(/*[FromServices] ILogger _logger*/)
         {
+            // Basic logger:
+            /*_logger.Information("Ana are mere");*/
+
+            // With Serilog you don't have to inject the logger:
+            try
+            {
+                Log.Information("Ana are mere.");
+                Log.Warning("Dar are si pere.");
+                Log.Error("Ce de fructe are Ama!");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+
             var serverTime = _dateTime.Now;
             
             if (serverTime.Hour < 12)
