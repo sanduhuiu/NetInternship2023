@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TremendBoard.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events; 
 
 namespace TremendBoard.Mvc
 {
@@ -21,6 +24,12 @@ namespace TremendBoard.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Serilog
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddSerilog();
+            });
             services.AddControllersWithViews();
             services.AddControllers();
             services.AddSingleton(Configuration);
@@ -61,6 +70,14 @@ namespace TremendBoard.Mvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // Serilog
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .CreateLogger();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
