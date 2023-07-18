@@ -1,0 +1,30 @@
+----------------------------------Transient:
+timeService1: 7/18/2023 3:17:23 PM
+
+timeService2: 7/18/2023 3:17:23 PM
+
+
+----------------------------------Scoped:
+timeService1: 7/18/2023 3:18:21 PM
+
+timeService2: 7/18/2023 3:18:21 PM
+
+----------------------------------After refresh:
+timeService1: 7/18/2023 3:18:47 PM
+
+timeService2: 7/18/2023 3:18:47 PM
+
+----------------------------------Singleton:
+timeService1: 7/18/2023 3:19:33 PM
+
+timeService2: 7/18/2023 3:19:33 PM
+
+----------------------------------After Refresh:
+timeService1: 7/18/2023 3:19:33 PM
+
+timeService2: 7/18/2023 3:19:33 PM
+
+----------------------------------After Rerun:
+timeService1: 7/18/2023 3:20:20 PM
+
+timeService2: 7/18/2023 3:20:20 PM

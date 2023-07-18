@@ -9,16 +9,16 @@ namespace TremendBoard.Infrastructure.Services.Services
 {
     public class TimeService : ITimeService
     {
-        private readonly IDateTime _time;
-        public TimeService(IDateTime time) 
+        private readonly DateTime _time;
+        public TimeService() 
         {
-            _time = time;
+            _time = DateTime.Now;
         }
 
 
         public DateTime GetCurrentTime()
         {
-            return _time.Now;
+            return _time;
         }
     }
 }
