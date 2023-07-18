@@ -16,10 +16,12 @@ namespace TremendBoard.Mvc.Controllers
     public class ProjectController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(IUnitOfWork unitOfWork)
+        public ProjectController(IUnitOfWork unitOfWork, IProjectService projectService)
         {
             _unitOfWork = unitOfWork;
+            _projectService = projectService;
         }
 
         [TempData]
@@ -59,18 +61,10 @@ namespace TremendBoard.Mvc.Controllers
                 return View(model);
             }
 
-            await _unitOfWork.Project.AddAsync(new Project
-            {
-                Name = model.Name,
-                Description = model.Description,
-                CreatedDate = DateTime.Now,
-                ProjectStatus = model.ProjectStatus,
-                Deadline = model.ProjectDeadline
-            });
-
-            await _unitOfWork.SaveAsync();
+            await _projectService.CreateProject(model);
 
             return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet]

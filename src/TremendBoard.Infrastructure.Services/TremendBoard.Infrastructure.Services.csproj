@@ -10,8 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TremendBoard.Infrastructure.Data\TremendBoard.Infrastructure.Data.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\TremendBoard.Infrastructure.Data\TremendBoard.Infrastructure.Data.csproj" />
+	</ItemGroup>
 </Project>
