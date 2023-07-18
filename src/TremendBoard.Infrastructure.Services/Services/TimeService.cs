@@ -9,7 +9,7 @@ namespace TremendBoard.Infrastructure.Services.Services
 {
     public class TimeService : ITimeService
     {
-        private DateTime CurrentTime;
+        private DateTime CurrentTime { get; set; }
 
         public TimeService() 
         {
