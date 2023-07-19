@@ -5,7 +5,7 @@ namespace TremendBoard.Infrastructure.Services.Interfaces
     public interface IJobTestService
     {
         void FireAndForgetJob();
-        void ReccuringJob();
+        Task ReccuringJob();
         Task DelayedJob();
         void ContinuationJob();
     }
