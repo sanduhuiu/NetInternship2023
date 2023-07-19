@@ -43,9 +43,21 @@ namespace TremendBoard.Mvc.Controllers
         public ActionResult ReccuringJob()
         {
             Log.Information("The request for reccuring job started");
-            RecurringJob.AddOrUpdate<JobTestService>(x => x.ReccuringJob(), Cron.Minutely); 
+            _recurringJobManager.AddOrUpdate("my-recurring-job", () => _jobTestService.ReccuringJob(), Cron.Minutely);
             return Ok();
         }
+
+        [HttpGet("/ContinuationJob")]
+        public ActionResult ContinuationJob()
+        {
+            Log.Information("The request for Continuation Job started");
+            var parentJobId = _backgroundJobClient.Enqueue(() => Log.Information("Parent Job"));
+
+            // Create a continuation job that runs after the parent job (ContinuationJob) is completed
+            _backgroundJobClient.ContinueJobWith(parentJobId, () => _jobTestService.ContinuationJob());
+            return Ok();
+        }
+
 
 
     }
