@@ -5,14 +5,15 @@ using TremendBoard.Infrastructure.Data.Models.Identity;
 
 namespace TremendBoard.Infrastructure.Data.Models
 {
-    public class Project: BaseEntity
+    public class Project : BaseEntity
     {
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime CompletedDate { get; set; }
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "0:yyyy-MM-dd")]
         public DateTime Deadline { get; set; }
         public string ProjectStatus { get; set; }
 
