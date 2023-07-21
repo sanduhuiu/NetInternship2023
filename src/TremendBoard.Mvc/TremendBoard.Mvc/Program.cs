@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Serilog;
+using System;
 
 namespace TremendBoard.Mvc
 {
@@ -7,6 +11,7 @@ namespace TremendBoard.Mvc
     {
         public static void Main(string[] args)
         {
+            
             CreateHostBuilder(args).Build().Run();
 
         }
@@ -17,5 +22,6 @@ namespace TremendBoard.Mvc
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
