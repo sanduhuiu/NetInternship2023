@@ -36,7 +36,7 @@ namespace TremendBoard.Mvc
 
             services.AddHangfire(x =>
             {
-                x.UseSqlServerStorage(Configuration.GetConnectionString("DBConnection"));
+                x.UseSqlServerStorage(Configuration.GetConnectionString("SqlConnectionString"));
             });
             services.AddHangfireServer();
         }
