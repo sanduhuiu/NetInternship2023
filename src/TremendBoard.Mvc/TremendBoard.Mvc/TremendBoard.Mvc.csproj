@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\TremendBoard.Infrastructure.Services\TremendBoard.Infrastructure.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 </Project>
