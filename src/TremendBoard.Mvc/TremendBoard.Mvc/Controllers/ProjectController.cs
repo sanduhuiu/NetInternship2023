@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TremendBoard.Infrastructure.Data.Models;
 using TremendBoard.Infrastructure.Data.Models.Identity;
+using TremendBoard.Infrastructure.Services.DTO.ProjectDTO;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Enums;
 using TremendBoard.Mvc.Models.ProjectViewModels;
@@ -16,10 +18,14 @@ namespace TremendBoard.Mvc.Controllers
     public class ProjectController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectService _projectService;
+        private readonly IMapper _mapper;
 
-        public ProjectController(IUnitOfWork unitOfWork)
+        public ProjectController(IMapper mapper, IUnitOfWork unitOfWork, IProjectService projectService)
         {
             _unitOfWork = unitOfWork;
+            _projectService = projectService;
+            _mapper = mapper;
         }
 
         [TempData]
@@ -54,19 +60,31 @@ namespace TremendBoard.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProjectDetailViewModel model)
         {
+            // the controller's endpoint should validate the received model and then send the responsability to 
+            // manipulate the data to the service
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            await _unitOfWork.Project.AddAsync(new Project
+            await _projectService.AddAsync(new Infrastructure.Services.DTO.ProjectDTO.ProjectAddRequest
             {
                 Name = model.Name,
                 Description = model.Description,
+                ProjectStatus = model.ProjectStatus,
+                Deadline = model.Deadline
+            });
+
+            /*await _unitOfWork.Project.AddAsync(new Project
+            {
+                Name = model.Name,
+                Description = model.Description,
+                ProjectStatus = model.ProjectStatus,
+                Deadline = model.Deadline,
                 CreatedDate = DateTime.Now
             });
 
-            await _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync();*/
 
             return RedirectToAction(nameof(Index));
         }
@@ -74,7 +92,12 @@ namespace TremendBoard.Mvc.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var project = await _unitOfWork.Project.GetByIdAsync(id);
+            // var model = _mapper.Map<ProjectDetailViewModel>((await _projectService.GetByIdAsync(id)));
+
+            var projectResponse = await _projectService.GetByIdAsync(id);
+            var model = _mapper.Map<ProjectDetailViewModel>(projectResponse);
+
+            /*var project = await _unitOfWork.Project.GetByIdAsync(id);
             
             if (project == null)
             {
@@ -108,6 +131,8 @@ namespace TremendBoard.Mvc.Controllers
                 Id = id,
                 Name = project.Name,
                 Description = project.Description,
+                ProjectStatus = project.ProjectStatus,
+                Deadline = project.Deadline,
                 ProjectUsers = new List<ProjectUserDetailViewModel>(),
                 Users = usersView,
                 Roles = rolesView
@@ -131,7 +156,7 @@ namespace TremendBoard.Mvc.Controllers
                 };
 
                 model.ProjectUsers.Add(projectUser);
-            }
+            }*/
 
             return View(model);
         }
@@ -146,7 +171,8 @@ namespace TremendBoard.Mvc.Controllers
             }
 
             var projectId = model.Id;
-            var project = await _unitOfWork.Project.GetByIdAsync(projectId);
+            var project = await _projectService.GetByIdAsync(projectId);
+            //var project = await _unitOfWork.Project.GetByIdAsync(projectId);
 
             if (project == null)
             {
@@ -154,7 +180,11 @@ namespace TremendBoard.Mvc.Controllers
                 return View(model);
             }
 
-            project.Name = model.Name;
+            var projectUpdateRequest = _mapper.Map<ProjectUpdateRequest>(model);
+            var response = await _projectService.UpdateAsync(projectUpdateRequest);
+            var returnModel = _mapper.Map<ProjectDetailViewModel>(response);
+
+            /*project.Name = model.Name;
             project.Description = model.Description;
 
             var users = await _unitOfWork.User.GetAllAsync();
@@ -206,9 +236,10 @@ namespace TremendBoard.Mvc.Controllers
             _unitOfWork.Project.Update(project);
             await _unitOfWork.SaveAsync();
 
-            model.StatusMessage = $"{project.Name} project has been updated";
+            model.StatusMessage = $"{project.Name} project has been updated";*/
 
-            return View(model);
+            //return View(model);
+            return View(returnModel);
         }
 
         [HttpPost]
