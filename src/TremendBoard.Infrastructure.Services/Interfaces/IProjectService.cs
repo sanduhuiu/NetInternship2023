@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TremendBoard.Mvc.Models.ProjectViewModels;
+using TremendBoard.DTO.ProjectViewModels;
 
 
 namespace TremendBoard.Infrastructure.Services.Interfaces

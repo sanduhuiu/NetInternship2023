@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TremendBoard.DTO.ProjectViewModels;
+using TremendBoard.DTO.RoleViewModels;
+using TremendBoard.DTO.UserViewModels;
 using TremendBoard.Infrastructure.Data.Models;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Enums;
-using TremendBoard.Mvc.Models.ProjectViewModels;
-using TremendBoard.Mvc.Models.RoleViewModels;
-using TremendBoard.Mvc.Models.UserViewModels;
+
 
 namespace TremendBoard.Mvc.Controllers
 {

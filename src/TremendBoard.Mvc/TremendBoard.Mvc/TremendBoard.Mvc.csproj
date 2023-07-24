@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\TremendBoard.Infrastructure.Data\TremendBoard.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\..\TremendBoard.Infrastructure.Services\TremendBoard.Infrastructure.Services.csproj" />
+    <ProjectReference Include="..\TremendBoard.DTO\TremendBoard.DTO.csproj" />
   </ItemGroup>
 
 </Project>

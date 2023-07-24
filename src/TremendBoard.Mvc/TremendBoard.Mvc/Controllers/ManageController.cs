@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TremendBoard.Mvc.Models.ManageViewModels;
+using TremendBoard.DTO.ManageViewModels;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Mvc.Enums;
 using TremendBoard.Infrastructure.Services.Interfaces;

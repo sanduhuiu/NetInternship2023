@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TremendBoard.Infrastructure.Services.Interfaces;
-using TremendBoard.Mvc.Models;
+using TremendBoard.DTO;
 
 namespace TremendBoard.Mvc.Controllers
 {
