@@ -53,8 +53,12 @@ namespace TremendBoard.Mvc.Controllers
             Log.Information("The request for Continuation Job started");
             var parentJobId = _backgroundJobClient.Enqueue(() => Log.Information("Parent Job"));
 
+            // the continuation job that runs after parentJob is completed
+            var continuationJob = _backgroundJobClient.ContinueJobWith(parentJobId, () => _jobTestService.ContinuationJob());
+
+
             // Create a continuation job that runs after the parent job (ContinuationJob) is completed
-            _backgroundJobClient.ContinueJobWith(parentJobId, () => _jobTestService.ContinuationJob());
+            _backgroundJobClient.ContinueJobWith(continuationJob, () => Log.Information("This is continuation job that announces the prime number continuation job has finished"));
             return Ok();
         }
 
