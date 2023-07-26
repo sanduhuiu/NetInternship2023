@@ -30,11 +30,11 @@ namespace TremendBoard.Mvc.Controllers
             var projects = await _unitOfWork.Project.GetAllAsync();
             var projectsView = projects
                 .Select(x => new ProjectDetailViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description
-            });
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description
+                });
 
             var model = new ProjectIndexViewModel
             {
@@ -75,7 +75,7 @@ namespace TremendBoard.Mvc.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var project = await _unitOfWork.Project.GetByIdAsync(id);
-            
+
             if (project == null)
             {
                 throw new ApplicationException($"Unable to load project with ID '{id}'.");
@@ -114,12 +114,12 @@ namespace TremendBoard.Mvc.Controllers
             };
 
             var userRoles = _unitOfWork.Project.GetProjectUserRoles(id);
-            
+
             foreach (var userRole in userRoles)
             {
                 var user = users.FirstOrDefault(x => x.Id == userRole.UserId);
                 var role = roles.FirstOrDefault(x => x.Id == userRole.RoleId);
-                
+
                 var projectUser = new ProjectUserDetailViewModel
                 {
                     ProjectId = id,
@@ -240,7 +240,7 @@ namespace TremendBoard.Mvc.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var project = await _unitOfWork.Project.GetByIdAsync(id);
-            
+
             if (project == null)
             {
                 StatusMessage = "Project not found";
@@ -263,7 +263,7 @@ namespace TremendBoard.Mvc.Controllers
             var projectId = model.Id;
 
             var project = await _unitOfWork.Project.GetByIdAsync(projectId);
-            
+
             if (project == null)
             {
                 StatusMessage = "Project not found";
@@ -275,5 +275,7 @@ namespace TremendBoard.Mvc.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }
