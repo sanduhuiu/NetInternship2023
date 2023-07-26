@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Mvc.Enums;
 using TremendBoard.DTO.AccountViewModels;
@@ -56,23 +57,28 @@ namespace TremendBoard.Mvc.Controllers
                 
                 if (result.Succeeded)
                 {
+                    Log.Information("Login successfull");
+
                     //_logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
                 
                 if (result.IsLockedOut)
                 {
+                    Log.Warning("user account locked out in login");
                     //_logger.LogWarning("User account locked out.");
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
+                    Log.Error("Error Login");
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
+            Log.Error("Something went wrong in login");
             return View(model);
         }
         
@@ -131,13 +137,16 @@ namespace TremendBoard.Mvc.Controllers
                     
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
+                    Log.Information("Successfull register");
                     return RedirectToLocal(returnUrl);
                 }
 
+                Log.Error("registered failed");
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
+            Log.Warning("form completed wrong");
             return View(model);
         }
 
@@ -147,6 +156,7 @@ namespace TremendBoard.Mvc.Controllers
         {
             await _signInManager.SignOutAsync();
 
+            Log.Information("Successfull logout");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         
@@ -154,6 +164,7 @@ namespace TremendBoard.Mvc.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
+            Log.Information("entered forgot password");
             return View();
         }
 
@@ -180,6 +191,7 @@ namespace TremendBoard.Mvc.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            Log.Error("forgot password failed");
             return View(model);
         }
 
