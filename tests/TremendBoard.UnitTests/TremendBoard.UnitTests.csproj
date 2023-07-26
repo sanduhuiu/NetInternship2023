@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\TremendBoard.Infrastructure.Services\TremendBoard.Infrastructure.Services.csproj" />
     <ProjectReference Include="..\..\src\TremendBoard.Mvc\TremendBoard.Mvc\TremendBoard.Mvc.csproj" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
