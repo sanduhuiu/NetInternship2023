@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TremendBoard.DTO.ProjectViewModels;
+using TremendBoard.DTO.RoleViewModels;
+using TremendBoard.DTO.UserViewModels;
 using TremendBoard.Infrastructure.Data.Models;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Enums;
-using TremendBoard.Mvc.Models.ProjectViewModels;
-using TremendBoard.Mvc.Models.RoleViewModels;
-using TremendBoard.Mvc.Models.UserViewModels;
+
 
 namespace TremendBoard.Mvc.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(IUnitOfWork unitOfWork)
+        public ProjectController(IUnitOfWork unitOfWork, IProjectService projectService)
         {
             _unitOfWork = unitOfWork;
+            _projectService = projectService;
         }
 
         [TempData]
@@ -59,16 +62,10 @@ namespace TremendBoard.Mvc.Controllers
                 return View(model);
             }
 
-            await _unitOfWork.Project.AddAsync(new Project
-            {
-                Name = model.Name,
-                Description = model.Description,
-                CreatedDate = DateTime.Now
-            });
-
-            await _unitOfWork.SaveAsync();
+            await _projectService.CreateProject(model);
 
             return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet]
@@ -156,6 +153,8 @@ namespace TremendBoard.Mvc.Controllers
 
             project.Name = model.Name;
             project.Description = model.Description;
+            project.ProjectStatus = model.ProjectStatus;
+            project.Deadline = model.ProjectDeadline;
 
             var users = await _unitOfWork.User.GetAllAsync();
             var usersView = users.Select(user => new UserDetailViewModel

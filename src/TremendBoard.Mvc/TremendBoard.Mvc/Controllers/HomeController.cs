@@ -2,8 +2,9 @@
 using Serilog;
 using System.Diagnostics;
 using TremendBoard.Infrastructure.Services.Interfaces;
+using TremendBoard.DTO;
 using TremendBoard.Infrastructure.Services.Services;
-using TremendBoard.Mvc.Models;
+
 
 namespace TremendBoard.Mvc.Controllers
 {

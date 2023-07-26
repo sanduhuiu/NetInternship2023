@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Infrastructure.Services.Interfaces;
-using TremendBoard.Mvc.Models.RoleViewModels;
+using TremendBoard.DTO.RoleViewModels;
 
 namespace TremendBoard.Mvc.Controllers
 {

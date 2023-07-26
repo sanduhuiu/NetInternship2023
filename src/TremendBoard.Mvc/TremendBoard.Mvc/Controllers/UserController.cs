@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Mvc.Enums;
-using TremendBoard.Mvc.Models.UserViewModels;
+using TremendBoard.DTO.UserViewModels;
 
 namespace TremendBoard.Mvc.Controllers
 {

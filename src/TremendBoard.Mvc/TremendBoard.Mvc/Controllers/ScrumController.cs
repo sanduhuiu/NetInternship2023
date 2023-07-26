@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using TremendBoard.Infrastructure.Data.Models;
 using TremendBoard.Infrastructure.Services.Interfaces;
 using TremendBoard.Mvc.Enums;
-using TremendBoard.Mvc.Models.ProjectViewModels;
-using TremendBoard.Mvc.Models.RoleViewModels;
-using TremendBoard.Mvc.Models.ScrumViewModels;
-using TremendBoard.Mvc.Models.UserViewModels;
+using TremendBoard.DTO.ProjectViewModels;
+using TremendBoard.DTO.RoleViewModels;
+using TremendBoard.DTO.ScrumViewModels;
+using TremendBoard.DTO.UserViewModels;
 
 namespace TremendBoard.Mvc.Controllers
 {

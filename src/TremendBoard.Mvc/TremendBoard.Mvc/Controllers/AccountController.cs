@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using TremendBoard.Infrastructure.Data.Models.Identity;
 using TremendBoard.Mvc.Enums;
-using TremendBoard.Mvc.Models.AccountViewModels;
+using TremendBoard.DTO.AccountViewModels;
 
 namespace TremendBoard.Mvc.Controllers
 {

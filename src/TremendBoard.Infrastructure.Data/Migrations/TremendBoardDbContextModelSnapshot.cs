@@ -287,11 +287,17 @@ namespace TremendBoard.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectStatus")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -309,11 +315,17 @@ namespace TremendBoard.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("Duration")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ProjectId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProjectStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
